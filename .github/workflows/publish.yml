@@ -1,0 +1,52 @@
+name: Publish on npm
+
+on:
+  release:
+    types: [published]
+
+  workflow_dispatch:
+    inputs:
+      dist-tag:
+        required: false
+        type: string
+
+jobs:
+  publish:
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Setup up Node.js environment
+        uses: SBence/setup-node-workflow-yarn@master
+        with:
+          node-version: "*"
+          registry-url: https://registry.npmjs.org/
+
+      - name: Check formatting
+        run: yarn formatting:check
+
+      - name: Lint code
+        run: yarn lint
+
+      - name: Check types
+        run: yarn check-types
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Create tarball
+        run: yarn pack --filename package.tgz
+
+      - name: Publish package
+        run: |
+          TAG_OPTION=""
+          if [ -n "${{ github.event.inputs.dist-tag }}" ]; then
+            TAG_OPTION="--tag ${{ github.event.inputs.dist-tag }}"
+          fi
+          npm publish package.tgz --provenance --access public $TAG_OPTION
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

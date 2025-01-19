@@ -1,0 +1,28 @@
+name: Check pull request
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Setup up Node.js environment
+        uses: SBence/setup-node-workflow-yarn@master
+        with:
+          node-version: "*"
+
+      - name: Run checks
+        uses: ./.github/actions/run-checks
+
+      - name: Create tarball
+        run: yarn pack --filename package.tgz
+
+      - name: Test tarball installation
+        run: yarn add package.tgz
