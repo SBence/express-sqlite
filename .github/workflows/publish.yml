@@ -26,17 +26,8 @@ jobs:
           node-version: "*"
           registry-url: https://registry.npmjs.org/
 
-      - name: Check formatting
-        run: yarn formatting:check
-
-      - name: Lint code
-        run: yarn lint
-
-      - name: Check types
-        run: yarn check-types
-
-      - name: Run tests
-        run: yarn test
+      - name: Run code quality checks
+        uses: ./.github/actions/check-code-quality
 
       - name: Create tarball
         run: yarn pack --filename package.tgz
