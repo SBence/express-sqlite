@@ -5,7 +5,6 @@ An SQLite-based session store for use with [express-session](https://github.com/
 [![npm version](https://img.shields.io/npm/v/express-sqlite)](https://www.npmjs.com/package/express-sqlite)
 ![Last updated](https://img.shields.io/npm/last-update/express-sqlite)
 [![Publish on npm](https://github.com/SBence/express-sqlite/actions/workflows/publish.yml/badge.svg)](https://github.com/SBence/express-sqlite/actions/workflows/publish.yml)
-[![Dependencies](https://img.shields.io/librariesio/release/npm/express-sqlite)](https://www.npmjs.com/package/express-sqlite?activeTab=dependencies)
 [![License](https://img.shields.io/npm/l/express-sqlite)](LICENSE)
 
 ## Table of contents
