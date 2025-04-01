@@ -59,7 +59,6 @@ export default async (
   expect(walFilesPresent(dbPathForConstructorNoWal)).toBe(false);
 
   // Run tests
-  /* eslint-disable @typescript-eslint/no-misused-promises */
   await testFunction({ app: appWithDbPathWal, store: storeWithDbPathWal });
   await testFunction({
     app: appWithDbInstanceWal,
@@ -70,5 +69,4 @@ export default async (
     app: appWithDbInstanceNoWal,
     store: storeWithDbInstanceNoWal,
   });
-  /* eslint-enable @typescript-eslint/no-misused-promises */
 };

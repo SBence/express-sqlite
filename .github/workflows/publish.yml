@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Setup up Node.js environment
-        uses: SBence/setup-node-workflow-yarn@master
+        uses: SBence/setup-node-workflow@master
         with:
           node-version: "*"
           registry-url: https://registry.npmjs.org/
