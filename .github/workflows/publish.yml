@@ -27,7 +27,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Run code quality checks
-        uses: ./.github/actions/check-code-quality
+        run: yarn run check
 
       - name: Create tarball
         run: yarn pack --filename package.tgz

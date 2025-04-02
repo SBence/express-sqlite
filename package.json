@@ -34,14 +34,16 @@
   },
   "scripts": {
     "build": "rm -rf dist && concurrently \"node esbuild.config.js\" \"dts-bundle-generator --no-banner --project lib/tsconfig.json -o dist/index.d.ts lib/src/index.ts\"",
-    "check-types": "concurrently \"$npm_execpath run check-types:lib\" \"$npm_execpath run check-types:test\"",
-    "check-types:lib": "tsc --project lib --noEmit",
-    "check-types:test": "tsc --project test --noEmit",
-    "formatting:check": "prettier --check .",
-    "formatting:apply": "prettier --write .",
-    "lint": "eslint .",
+    "check": "concurrently \"$npm_execpath run lint:eslint\" \"$npm_execpath run lint:types:lib\" \"$npm_execpath run lint:types:test\" \"$npm_execpath run lint:formatting\" \"$npm_execpath run test\"",
+    "lint": "concurrently \"$npm_execpath run lint:eslint\" \"$npm_execpath run lint:types:lib\" \"$npm_execpath run lint:types:test\" \"$npm_execpath run lint:formatting\"",
+    "lint:eslint": "eslint .",
+    "lint:formatting": "prettier --check .",
+    "lint:fix:formatting": "prettier --write .",
+    "lint:types": "concurrently \"$npm_execpath run check-types:lib\" \"$npm_execpath run check-types:test\"",
+    "lint:types:lib": "tsc --project lib --noEmit",
+    "lint:types:test": "tsc --project test --noEmit",
     "prepack": "$npm_execpath run build",
-    "test": "vitest run"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "better-sqlite3": "^11.8.1",
