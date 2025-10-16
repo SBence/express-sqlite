@@ -39,5 +39,3 @@ jobs:
             TAG_OPTION="--tag ${{ github.event.inputs.dist-tag }}"
           fi
           npm publish package.tgz --provenance --access public $TAG_OPTION
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
